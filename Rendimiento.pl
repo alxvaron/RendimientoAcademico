@@ -1,16 +1,17 @@
 % Determinación de excelente o enfermedades relacionadas
 %Álvaro Varón 
-diagnosticar:-
+ evaluar:-
 rendimiento(Rendimiento),
 write('El rendimiento del estudiante ha sido '),
 write(Rendimiento),
 nl,
-write('Esfuerzate mas!'),
+write('Sigue esforzandote!'),
 deshacer.
 
-/*Definición de enfermedades a probar*/
+/*Definición de clasificaciones de rendimiento*/
 rendimiento(muy_bajo) :- muy_bajo.
 rendimiento(bajo) :- bajo.
+rendimiento(regular) :- regular.
 rendimiento(bueno) :- bueno.
 rendimiento(sobresaliente) :- sobresaliente.
 rendimiento(excelente) :- excelente.
@@ -18,36 +19,41 @@ rendimiento(deficiente):- deficiente.
 
 /*Reglas de identificacion*/
 muy_bajo :-
-sintoma('Ha perdido algun parcial' ),
-sintoma('Ha perdido más de un parcial' ),
+ clasificacion('Ha perdido algun parcial' ),
+ clasificacion('Ha perdido más de un parcial' ),
 nl.
 
 bajo :-
-sintoma('Ha asistido a todas las clases'),
-sintoma('Ha entregado todos los trabajos' ),
-sintoma('Ha perdido algun parcial' ),
+ clasificacion('Ha asistido a todas las clases'),
+ clasificacion('Ha entregado todos los trabajos' ),
+ clasificacion('Ha perdido algun parcial' ),
+nl.
+
+regular :-
+ clasificacion('Ha entregado todos los trabajos' ),
+ clasificacion('Ha perdido algun trabajo' ),
 nl.
 
 bueno :-
-sintoma('Ha asistido a todas las clases'),
-sintoma('Ha entregado todos los trabajos' ),
-sintoma('Ha pasado todos los quizes y examenes' ), 
-sintoma('Tiene alguna nota inferior a 4' ), 
+ clasificacion('Ha asistido a todas las clases'),
+ clasificacion('Ha entregado todos los trabajos' ),
+ clasificacion('Ha pasado todos los quizes y examenes' ), 
+ clasificacion('Tiene alguna nota inferior a 4' ), 
 nl.
 
 sobresaliente :-
-sintoma('Ha asistido a todas las clases'),
-sintoma('Ha entregado todos los trabajos' ),
-sintoma('Ha pasado todos los quizes y examenes' ), 
-sintoma('Ha dedicado jornada extracurricular para estudiar' ), 
-sintoma(' tiene una nota inferior a 4.5' ),  
+ clasificacion('Ha asistido a todas las clases'),
+ clasificacion('Ha entregado todos los trabajos' ),
+ clasificacion('Ha pasado todos los quizes y examenes' ), 
+ clasificacion('Ha dedicado jornada extracurricular para estudiar' ), 
+ clasificacion(' tiene una nota inferior a 4.5' ),  
 nl.
 
 excelente :-
-sintoma('Ha asistido a todas las clases'),
-sintoma('Ha entregado todos los trabajos' ),
-sintoma('Ha pasado todos los quizes y examenes' ),
-sintoma('Ha dedicado jornada extracurricular para estudiar' ),  
+ clasificacion('Ha asistido a todas las clases'),
+ clasificacion('Ha entregado todos los trabajos' ),
+ clasificacion('Ha pasado todos los quizes y examenes' ),
+ clasificacion('Ha dedicado jornada extracurricular para estudiar' ),  
 nl.
 
 deficiente :-
@@ -67,7 +73,7 @@ assert(no(Pregunta)), fail).
 
 :- dynamic si/1,no/1.
 /*Determina si las respuestas coinciden con el rendimiento parametrizado*/
-sintoma(S) :-
+ clasificacion(S) :-
 (si(S)
 ->
 true ;
